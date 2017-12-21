@@ -19,6 +19,9 @@
 
   <script type="text/javascript" src="{{ url_for('static', filename='facetview/jquery.facetview.js') }}"></script>
 
+  <link rel="stylesheet" href="{{ url_for('static', filename='facetview/css/browser_alert.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='facetview/browser_alert.js') }}"></script>
+
   <link rel="stylesheet" href="{{ url_for('static', filename='facetview/css/facetview.css') }}">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='facetview/css/style.css') }}">
@@ -1371,6 +1374,7 @@ jQuery(document).ready(function($) {
     {% endwith %}
 
 <div class="container"> 
+  <script type="text/javascript">check_browser()</script>
   <div class="content">
     <div class="page-header">
       <h1>
@@ -1378,6 +1382,7 @@ jQuery(document).ready(function($) {
       </h1>
     </div>
 
+  
     <!--<h4>GRQ facets</h4>-->
     <div class="facet-view-simple"></div>
 
@@ -1695,7 +1700,7 @@ jQuery(document).ready(function($) {
           <p>For immediate support on any issues with ARIA Services, please send an email describing your issue to: <font color="red"><b>{{ config.get('SUPPORT_EMAIL', 'hysds-dev@jpl.nasa.gov') }}</b></font>.</p>
           <p>Please provide any screenshots that may help us diagnose the issue.</p>
          
-          <p>If you are having trouble with new features, please try force-refreshing the page, clearing your browser cache, or another browser.</p>
+          <p>If you are having trouble with new features, please try force-refreshing the page, clearing your browser cache, or another browser. Please note that, we recommend using firefox or chrome browser as other browsers may offer degraded performance.</p>
           <!--<p>In the future, this will be you one-stop shop for submitting and monitoring support cases, exploring help documentation and checking the health of ARIA services.</p>-->
         </div>
       </div>
