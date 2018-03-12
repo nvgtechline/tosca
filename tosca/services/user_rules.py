@@ -88,11 +88,17 @@ def get_actions_config():
     else:
         raise RuntimeError("Invalid interface: %s" % ifc)
     # enable actions that need special auth
+    try:
+        action_specs = sorted(hysds_commons.action_utils.get_action_spec(app.config["ES_URL"],
+                                                                         app.config["MOZART_ES_URL"],
+                                                                         app.config["OPS_USER"]),
+                              key=lambda s: s['label'].lower())
+    except requests.exceptions.HTTPError, e:
+        if e.response.status_code == 404:
+            action_specs = []
+        else: raise
     actions = []
-    for action in sorted(hysds_commons.action_utils.get_action_spec(app.config["ES_URL"],
-                                                                    app.config["MOZART_ES_URL"],
-                                                                    app.config["OPS_USER"]),
-                         key=lambda s: s['label'].lower()):
+    for action in action_specs:
         if not action[ifc_filter]: continue
         if action['public'] is False:
             if g.user.id in action.get('allowed_accounts', []):
