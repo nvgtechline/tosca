@@ -63,15 +63,25 @@ def add_grq_mappings(es_url, es_index):
 @mod.route('/user_rules/get_jobspec_names', methods=['GET'])
 def get_jobspecs():
     """Get the list of jobspecs"""
-    jspecs = hysds_commons.job_spec_utils.get_job_spec_types(app.config["MOZART_ES_URL"],
-                                                                logger=app.logger)
+    try:
+        jspecs = hysds_commons.job_spec_utils.get_job_spec_types(app.config["MOZART_ES_URL"],
+                                                                 logger=app.logger)
+    except requests.exceptions.HTTPError, e:
+        if e.response.status_code == 404:
+            jspecs = []
+        else: raise
     return jsonify({"jobspecs": jspecs})
 
 @mod.route('/user_rules/get_container_names', methods=['GET'])
 def get_containers():
     """Get the list of containers"""
-    cspecs = hysds_commons.container_utils.get_container_types(app.config["MOZART_ES_URL"],
-                                                                logger=app.logger)
+    try:
+        cspecs = hysds_commons.container_utils.get_container_types(app.config["MOZART_ES_URL"],
+                                                                   logger=app.logger)
+    except requests.exceptions.HTTPError, e:
+        if e.response.status_code == 404:
+            cspecs = []
+        else: raise
     return jsonify({"containers": cspecs})
 
 @mod.route('/user_rules/actions_config', methods=['GET'])
