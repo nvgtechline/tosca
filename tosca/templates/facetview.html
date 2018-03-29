@@ -1330,7 +1330,7 @@ jQuery(document).ready(function($) {
         <li><a href="{{ url_for('views/main.index') }}">Facet Search</a></li>
         {% if g.user.is_authenticated and g.user.id == config['OPS_USER'] %}
         <li><a href="{{ config['FIGARO_URL'] }}">Jobs</a></li>
-        {% elif g.user.is_authenticated %}
+        {% elif g.user.is_authenticated and 'my_jobs' in g.blueprints.keys() %}
         <li><a href="{{ url_for('my_jobs.index') }}">My Jobs</a></li>
         {% endif %}
         {% if config['TERMS_OF_USE'] %}

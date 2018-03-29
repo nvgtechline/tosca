@@ -136,6 +136,7 @@ def index():
     emails = g.user.ldap_info.get('mail', [])
     if len(emails) > 0: email = emails[0]
     else: email = ""
+    g.blueprints = app.blueprints
     return render_template('facetview.html',
                            title='TOSCA: Advanced FacetView User Interface',
                            email= email,
