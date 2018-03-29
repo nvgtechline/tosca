@@ -10,10 +10,11 @@ def ldap_user_verified(username, password):
     host = app.config['LDAP_HOST']
     base_dn = app.config['LDAP_BASEDN']
     groups = app.config['LDAP_GROUPS']
+    opts = { 'OPT_NETWORK_TIMEOUT': 10 }
 
     try:
         l = simpleldap.Connection(host, dn='uid=%s,%s' % (username, base_dn),
-                                  encryption='ssl', password=password) 
+                                  encryption='ssl', password=password, options=opts) 
     except Exception, e:
         app.logger.info("Got error trying to verify LDAP user %s:" % username)
         app.logger.info("%s:\n\n%s" % (str(e), traceback.format_exc()))

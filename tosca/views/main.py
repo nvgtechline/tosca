@@ -89,7 +89,7 @@ def login():
             if app.config['OPS_PASSWORD_HASH'] == ops_passwd_hex:
                 ldap_info = {}
             else: ldap_info = None 
-        elif username in app.config['OUTSIDE_ACCOUNTS']:
+        elif username in app.config.get('OUTSIDE_ACCOUNTS', {}):
             passwd_hex = hashlib.sha224(password).hexdigest()
             if app.config['OUTSIDE_ACCOUNTS'][username] == passwd_hex:
                 ldap_info = {}
