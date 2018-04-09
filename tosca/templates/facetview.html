@@ -942,6 +942,7 @@ jQuery(document).ready(function($) {
         }
 
         // append handlers to status buttons
+        $('#rules_table').off('click', '.toggle_rule');
         $('#rules_table').on('click', '.toggle_rule', function() {
           var button = $(this);
           var rule_id = button.attr('value');
@@ -975,6 +976,7 @@ jQuery(document).ready(function($) {
         });
 
         // append handlers to delete buttons
+        $('#rules_table').off('click', '.remove_rule');
         $('#rules_table').on('click', '.remove_rule', function() {
           var rule_id = $(this).attr('value');
           var rule_name = $(this).attr('rule_name');
@@ -985,6 +987,7 @@ jQuery(document).ready(function($) {
         });
 
         // append handlers to edit buttons
+        $('#rules_table').off('click', '.edit_rule');
         $('#rules_table').on('click', '.edit_rule', function() {
           var parent_tr = $(this).closest('tr');
           var rule_id = $(this).attr('value');
@@ -999,66 +1002,6 @@ jQuery(document).ready(function($) {
           $('#rule_modal').modal('show').css({'left': set_left_margin});
           $('#list_rules_modal').modal('hide');
         });
-        /* // Export Rules Button setup
-        $('#rules_table').on('click', '.user-rules-export', function() {
-          $.ajax({
-             url: "user_rules/list",
-             success: function(data, sts, xhr) {
-               var tmp = $("#user-rules-download");
-               var dta = JSON.stringify(data).replace("\\n","\n");
-               
-               tmp.val(dta);
-               $('#export_rules_modal').modal('show').css({'left': set_left_margin});
-               $('#list_rules_modal').modal('hide');
-             }
-          });
-        });
-        //Import Rules Button Setup
-        $('#rules_table').on('click', '.user-rules-import', function() {
-             $('#import_rules_modal').modal('show').css({'left': set_left_margin});
-             $('#list_rules_modal').modal('hide');
-             $('button.import_list_rules').on('click', function() {
-                     var text = $("#user-rules-upload").val();
-                     text = text.replace(/(\r\n|\n|\r)/gm,"");
-                     var data = JSON.parse(text);
-                     for (var i = 0; i < data.rules.length; i++)
-                     {
-                        var update_url = "user_rules/add";
-                        $.ajax({
-                          type: "POST",
-                          url: update_url,
-                          data: data.rules[i],
-                          success: function(data, sts, xhr) {
-                            //console.log(data);
-                            $('#ajax_error').html("");
-                            $('#rule_modal').modal('hide');
-                          },
-                          error: function(xhr, sts, err) {
-                            //console.log(xhr);
-                            var resp = JSON.parse(xhr.responseText);
-                            $('#ajax_error').html("Error: " + resp.message);
-                          }
-                        }); 
-                     }
-                 });
-        });
-        //Add rules
-        $('#rules_table').on('click', '.user-rules-add', function() {
-          $('#rule_id').val("");
-          $('#rule_name').val("");
-          $('#query_string').val("{}");
-          $('#workflow_val').val("");
-          $('#queue_val').val("");
-          $('#priority_val').val(0);
-          $('#kwargs').val("");
-          $('#rule_modal_label').text("Add Rule");
-          $('#rule_modal').modal('show').css({'left': set_left_margin});
-          $('#list_rules_modal').modal('hide');
-        });
- 
-
-        // show modal
-        */
 
         // show modal
         $('#list_rules_modal').modal('show').css({'left': set_left_margin});
